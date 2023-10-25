@@ -24,18 +24,31 @@ const rawData: Ref<Item> = ref({
   x: 0, y: 0, z: 0, t: 0
 });
 
-onMounted(async () => {
+const setHandler = () => {
   window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
-    if (event.acceleration) {
-      const { x, y, z } = event.acceleration;
-      if (x !== null && y !== null && z !== null) {
-        rawData.value.x = rawData.value.x < x ? x : rawData.value.x
-        rawData.value.y = rawData.value.y < y ? y : rawData.value.y
-        rawData.value.z = rawData.value.z < z ? z : rawData.value.z
+      if (event.acceleration) {
+        const { x, y, z } = event.acceleration;
+        if (x !== null && y !== null && z !== null) {
+          rawData.value.x = rawData.value.x < x ? x : rawData.value.x
+          rawData.value.y = rawData.value.y < y ? y : rawData.value.y
+          rawData.value.z = rawData.value.z < z ? z : rawData.value.z
+        }
+        rawData.value.t = event.interval;
       }
-      rawData.value.t = event.interval;
-    }
-  });
+    });
+}
+
+onMounted(async () => {
+  const dme = new DeviceMotionEvent('devicemotion');
+  if ('requestPermission' in dme && typeof dme.requestPermission === 'function') {
+    dme.requestPermission().then(res => {
+      if (res === 'granted') {
+        setHandler();
+      }
+    })
+  } else {
+    setHandler();
+  }
 });
 
 </script>
