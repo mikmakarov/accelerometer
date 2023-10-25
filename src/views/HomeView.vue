@@ -1,11 +1,12 @@
 <template>
   <main >
     Accelerometer
-    <ul>
-      <li v-for="(item, index) in rawData">
-        {{ item }}
-      </li>
-    </ul>
+    <div>
+      <span>x: {{ rawData.x }} m/s<sup>2</sup></span>
+      <span>y: {{ rawData.y }} m/s<sup>2</sup></span>
+      <span>z: {{ rawData.z }} m/s<sup>2</sup></span>
+      <span>t: {{ rawData.t }} ms</span>
+    </div>
   </main>
 </template>
 
@@ -19,17 +20,17 @@ type Item = {
   t: number | null;
 }
 
-const rawData: Ref<Item[]> = ref([]);
+const rawData: Ref<Item> = ref({
+  x: 0, y: 0, z: 0, t: 0
+});
 
 onMounted(async () => {
   window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
     if (event.acceleration) {
-      rawData.value.push({
-        x: event.acceleration.x,
-        y: event.acceleration.y,
-        z: event.acceleration.z,
-        t: event.interval,
-      })
+      rawData.value.x = event.acceleration.x;
+      rawData.value.y = event.acceleration.y;
+      rawData.value.z = event.acceleration.z;
+      rawData.value.t = event.interval;
     }
   });
 });
