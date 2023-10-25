@@ -2,10 +2,10 @@
   <main >
     Accelerometer
     <article class="accelerometer">
-      <span>x: {{ rawData.x }} m/s<sup>2</sup></span>
-      <span>y: {{ rawData.y }} m/s<sup>2</sup></span>
-      <span>z: {{ rawData.z }} m/s<sup>2</sup></span>
-      <span>t: {{ rawData.t }} ms</span>
+      <span style="display: block;">Max x: {{ rawData.x }}   m/s<sup>2</sup></span>
+      <span style="display: block;">Max y: {{ rawData.y }}   m/s<sup>2</sup></span>
+      <span style="display: block;">Max z: {{ rawData.z }}   m/s<sup>2</sup></span>
+      <span style="display: block;">t: {{ rawData.t }}   ms</span>
     </article>
   </main>
 </template>
