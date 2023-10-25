@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref, onMounted, computed } from 'vue';
+import { ref, type Ref, onMounted } from 'vue';
 
 type Item = {
   x: number | null;
