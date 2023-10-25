@@ -36,25 +36,7 @@ const accData: Ref<Item[]> = ref([
     y: 0, 
     z: 0, 
     t: 0
-  },
-  {
-    x: 1, 
-    y: 0, 
-    z: 0, 
-    t: 1
-  },
-  {
-    x: 2, 
-    y: 0, 
-    z: 0, 
-    t: 2
-  },
-  {
-    x: 3, 
-    y: 0, 
-    z: 0, 
-    t: 3
-  },
+  }
 ]);
 const iteration = ref(0);
 const setHandler = () => {
@@ -101,7 +83,7 @@ onMounted(async () => {
 onMounted(() => {
   const width = 800;
   const height = 500;
-  const data = accData.value;
+  let data = accData.value;
   const svg = d3.select("svg").attr("width", width).attr("height", height);
   const g = svg.append("g");
 
@@ -146,7 +128,19 @@ onMounted(() => {
     .attr("stroke", "steelblue")
     .attr("stroke-width", 1.5)
     .attr("d", line);
-});
+    
+  setInterval(() => {
+      svg.selectAll("path").remove();
+      data = accData.value
+      g.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", line);
+    }, 1000)
+})
+
 
 
 
