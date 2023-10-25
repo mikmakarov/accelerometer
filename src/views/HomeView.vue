@@ -133,21 +133,9 @@ onMounted(() => {
     .attr("d", line);
 
   setInterval(() => {
-      svg.selectAll('g').remove();
-      g.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-
-      g.append("g")
-        .call(d3.axisLeft(y))
-        .append("text")
-        .attr("fill", "#000")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-
       svg.selectAll("path").remove();
       data = accData.value
+      x.domain([iteration.value, 1000])
       g.append("path")
         .datum(data)
         .attr("fill", "none")
