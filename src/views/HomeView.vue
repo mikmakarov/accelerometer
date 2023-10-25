@@ -30,7 +30,32 @@ const rawData: Ref<Item> = ref({
   x: 0, y: 0, z: 0, t: 0
 });
 
-const accData: Ref<Item[]> = ref([]);
+const accData: Ref<Item[]> = ref([
+  {
+    x: 0, 
+    y: 0, 
+    z: 0, 
+    t: 0
+  },
+  {
+    x: 1, 
+    y: 0, 
+    z: 0, 
+    t: 1
+  },
+  {
+    x: 2, 
+    y: 0, 
+    z: 0, 
+    t: 2
+  },
+  {
+    x: 3, 
+    y: 0, 
+    z: 0, 
+    t: 3
+  },
+]);
 const iteration = ref(0);
 const setHandler = () => {
   window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
@@ -83,20 +108,12 @@ onMounted(() => {
   //3. Creating the Chart Axes
   const x = d3
     .scaleTime()
-    .domain(
-      d3.extent(data, function (d: any) {
-        return d.t;
-      })
-    )
+    .domain([0, 1000])
     .rangeRound([0, width]);
 
   const y = d3
     .scaleLinear()
-    .domain(
-      d3.extent(data, function (d: any) {
-        return d.x;
-      })
-    )
+    .domain([0, 100])
     .rangeRound([height, 0]);
 
   //4. Creating a Line
