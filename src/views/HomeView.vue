@@ -38,6 +38,16 @@ const accData: Ref<Item[]> = ref([
     t: 0
   }
 ]);
+
+for (let i = 0; i < 1000; i++) {
+  accData.value.push({
+    x: 0, 
+    y: 0, 
+    z: 0, 
+    t: 0
+  })
+}
+
 const iteration = ref(0);
 const setHandler = () => {
   window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
@@ -50,17 +60,10 @@ const setHandler = () => {
           rawData.value.z = rawData.value.z < z ? z : rawData.value.z
         }
         rawData.value.t = event.interval;
-
-        if (accData.value.length > 1000) {
-          accData.value.shift()
+        if (x !== null && y !== null && z !== null) {
+          accData.value.push({ t: iteration.value, x: x, y: y, z: z});
         }
-        if (accData.value.length <= 1000) {
-          
-          if (x !== null && y !== null && z !== null) {
-            accData.value.push({ t: iteration.value, x: x, y: y, z: z});
-          }
-        }
-
+        accData.value.shift();
       }
     });
 }
@@ -128,7 +131,7 @@ onMounted(() => {
     .attr("stroke", "steelblue")
     .attr("stroke-width", 1.5)
     .attr("d", line);
-    
+
   setInterval(() => {
       svg.selectAll("path").remove();
       data = accData.value
