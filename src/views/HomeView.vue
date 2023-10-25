@@ -44,6 +44,8 @@ onMounted(async () => {
     dme.requestPermission().then((res: string) => {
       if (res === 'granted') {
         setHandler();
+      } else {
+        alert('Вонючий айфон')
       }
     })
   } else {
