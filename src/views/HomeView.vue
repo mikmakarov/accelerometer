@@ -41,7 +41,7 @@ const setHandler = () => {
 onMounted(async () => {
   const dme = new DeviceMotionEvent('devicemotion');
   if ('requestPermission' in dme && typeof dme.requestPermission === 'function') {
-    dme.requestPermission().then(res => {
+    dme.requestPermission().then((res: string) => {
       if (res === 'granted') {
         setHandler();
       }
