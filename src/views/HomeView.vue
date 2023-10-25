@@ -1,7 +1,7 @@
 <template>
   <main >
     Accelerometer
-    <article>
+    <article class="accelerometer">
       <span>x: {{ rawData.x }} m/s<sup>2</sup></span>
       <span>y: {{ rawData.y }} m/s<sup>2</sup></span>
       <span>z: {{ rawData.z }} m/s<sup>2</sup></span>
