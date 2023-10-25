@@ -24,8 +24,6 @@ const rawData: Ref<Item> = ref({
   x: 0, y: 0, z: 0, t: 0
 });
 
-
-
 onMounted(async () => {
   window.addEventListener('devicemotion', (event: DeviceMotionEvent) => {
     if (event.acceleration) {
