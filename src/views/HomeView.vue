@@ -1,12 +1,12 @@
 <template>
   <main >
     Accelerometer
-    <div>
+    <article>
       <span>x: {{ rawData.x }} m/s<sup>2</sup></span>
       <span>y: {{ rawData.y }} m/s<sup>2</sup></span>
       <span>z: {{ rawData.z }} m/s<sup>2</sup></span>
       <span>t: {{ rawData.t }} ms</span>
-    </div>
+    </article>
   </main>
 </template>
 
