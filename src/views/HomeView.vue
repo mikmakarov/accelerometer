@@ -59,11 +59,11 @@ const setHandler = () => {
           rawData.value.y = rawData.value.y < y ? y : rawData.value.y
           rawData.value.z = rawData.value.z < z ? z : rawData.value.z
         }
-        rawData.value.t = event.interval;
+        rawData.value.t = event.interval;          
         if (x !== null && y !== null && z !== null) {
+          accData.value.shift()
           accData.value.push({ t: iteration.value, x: x, y: y, z: z});
         }
-        accData.value.shift();
       }
     });
 }
@@ -93,7 +93,7 @@ onMounted(() => {
   //3. Creating the Chart Axes
   const x = d3
     .scaleTime()
-    .domain([0, 1000])
+    .domain([iteration.value, 1000])
     .rangeRound([0, width]);
 
   const y = d3
@@ -133,6 +133,19 @@ onMounted(() => {
     .attr("d", line);
 
   setInterval(() => {
+      svg.selectAll('g').remove();
+      g.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+      g.append("g")
+        .call(d3.axisLeft(y))
+        .append("text")
+        .attr("fill", "#000")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+
       svg.selectAll("path").remove();
       data = accData.value
       g.append("path")
@@ -141,7 +154,7 @@ onMounted(() => {
         .attr("stroke", "steelblue")
         .attr("stroke-width", 1.5)
         .attr("d", line);
-    }, 1000)
+    }, 100)
 })
 
 
